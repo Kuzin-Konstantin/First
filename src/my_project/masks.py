@@ -1,7 +1,3 @@
-import os
-import sys
-
-
 def get_mask_card_number(card_number: str) -> str:
     """Маскирует номер карты в формате XXXX XX** **** XXXX"""
     # первые 6 символов
