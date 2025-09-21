@@ -1,9 +1,9 @@
 [project]
 name = "my-project"
 version = "0.1.0"
-description = ""
+description = "Виджет банковских операций: маскирование счетов и карт, фильтрация и сортировка транзакций"
 authors = [
-    {name = "Konstantin Kuzin",email = "aibiztool16@gmail.com.com"}
+    {name = "Konstantin Kuzin",email = "aibiztool16@gmail.com"}
 ]
 readme = "README.md"
 requires-python = ">=3.13"
