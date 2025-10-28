@@ -38,4 +38,29 @@ poetry shell
 - black
 - isort
 - mypy
+- pytest 
+- pytest-cov
+
+## Тестирование
+
+### 1. Запуск тестов
+Для запуска всех тестов используйте команду:
+```bash
+pytest -v
+```
+
+### 2. Проверка покрытия кода тестами
+Чтобы увидеть процент покрытия (coverage):
+```bash
+pytest --cov=src/my_project
+```
+
+### 3. Отчёт в виде HTML
+Для просмотра красивого отчёта в браузере:
+```bash
+pytest --cov=src/my_project --cov-report=html
+```
+После выполнения команды откройте файл `htmlcov/index.html`.
+
+---
 
