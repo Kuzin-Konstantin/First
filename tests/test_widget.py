@@ -1,6 +1,6 @@
 import pytest
-from src.my_project.widget import mask_account_card, get_date
 
+from src.my_project.widget import get_date, mask_account_card
 
 # ------------------- mask_account_card -------------------
 
