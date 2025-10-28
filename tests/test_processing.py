@@ -1,6 +1,7 @@
 import pytest
 from src.my_project.processing import filter_by_state, sort_by_date
 
+
 @pytest.fixture
 def sample_data():
     """Пример данных для тестов"""
@@ -14,12 +15,16 @@ def sample_data():
 
 # ------------------------- filter_by_state -------------------------
 
-@pytest.mark.parametrize("status,expected_count", [
-    ("EXECUTED", 2),
-    ("CANCELED", 1),
-    ("PENDING", 1),
-    ("UNKNOWN", 0),
-])
+
+@pytest.mark.parametrize(
+    "status,expected_count",
+    [
+        ("EXECUTED", 2),
+        ("CANCELED", 1),
+        ("PENDING", 1),
+        ("UNKNOWN", 0),
+    ],
+)
 def test_filter_by_state_various_statuses(sample_data, status, expected_count):
     """Фильтрация по разным статусам"""
     result = filter_by_state(sample_data, state=status)
@@ -42,6 +47,7 @@ def test_filter_by_state_no_matches():
 
 
 # ------------------------- sort_by_date -------------------------
+
 
 def test_sort_by_date_descending(sample_data):
     """Сортировка по убыванию (последние сверху)"""

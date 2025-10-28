@@ -8,6 +8,7 @@ def sort_by_date(data: list[dict], descending: bool = True) -> list[dict]:
     # Если у элемента нет 'date', подставим пустую строку — такие уйдут в начало/конец.
     return sorted(data, key=lambda x: x.get("date") or "", reverse=descending)
 
+
 data = [
     {"id": 41428829, "state": "EXECUTED", "date": "2019-07-03T18:35:29.512364"},
     {"id": 939719570, "state": "EXECUTED", "date": "2018-06-30T02:08:58.425572"},
@@ -15,7 +16,7 @@ data = [
     {"id": 615064591, "state": "CANCELED", "date": "2018-10-14T08:21:33.419441"},
 ]
 
-if __name__ == "__main__": # pragma: no cover
+if __name__ == "__main__":  # pragma: no cover
     print(filter_by_state(data))
     print(filter_by_state(data, "CANCELED"))
     print(sort_by_date(data))  # по убыванию (последние сверху)
