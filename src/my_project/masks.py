@@ -13,7 +13,6 @@ def get_mask_account(account_number: str) -> str:
     return f"**{account_number[-4:]}"
 
 
-# Этот код выполнится только если файл запустить напрямую
-if __name__ == "__main__":
+if __name__ == "__main__": # pragma: no cover
     print(get_mask_card_number("7000792289606361"))  # 7000 79** **** 6361
     print(get_mask_account("73654108430135874305"))  # **4305
