@@ -32,6 +32,18 @@ def transaction_descriptions(transactions: list[dict]) -> Iterator[str]:
             yield description
 
 
+def card_number_generator(start: int, stop: int) -> Iterator[str]:
+    """
+    Генератор номеров банковских карт в формате 'XXXX XXXX XXXX XXXX'.
+    """
+    for number in range(start, stop + 1):
+        card_str = str(number).zfill(16)
+        formatted = " ".join(card_str[i:i + 4] for i in range(0, 16, 4))
+        yield formatted
+
+
+
+
 if __name__ == "__main__":
     transactions = [
         {
@@ -81,3 +93,6 @@ if __name__ == "__main__":
 
     for _ in range(3):
         print(next(descriptions))
+
+    for card_number in card_number_generator(1, 5):
+        print(card_number)
