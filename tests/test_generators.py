@@ -1,6 +1,9 @@
-import pytest
 import re
-from src.my_project.generators import filter_by_currency, transaction_descriptions, card_number_generator
+
+import pytest
+
+from src.my_project.generators import card_number_generator, filter_by_currency, transaction_descriptions
+
 
 @pytest.fixture
 def transactions():
@@ -27,10 +30,7 @@ def test_filter_by_currency_usd(transactions):
     usd_transactions = list(filter_by_currency(transactions, "USD"))
 
     assert len(usd_transactions) == 2
-    assert all(
-        tx["operationAmount"]["currency"]["code"] == "USD"
-        for tx in usd_transactions
-    )
+    assert all(tx["operationAmount"]["currency"]["code"] == "USD" for tx in usd_transactions)
 
 
 def test_filter_by_currency_no_match(transactions):
@@ -51,6 +51,7 @@ def test_filter_by_currency_missing_keys():
     result = list(filter_by_currency(transactions, "USD"))
     assert result == []
 
+
 def test_transaction_descriptions_basic(transactions):
     descriptions = list(transaction_descriptions(transactions))
     expected = [
@@ -59,6 +60,7 @@ def test_transaction_descriptions_basic(transactions):
         "Перевод на карту",
     ]
     assert descriptions == expected
+
 
 def test_transaction_descriptions_missing_field():
     data = [
@@ -108,15 +110,13 @@ def test_card_number_generator_empty_range():
     assert result == []
 
 
-def test_card_number_generator_empty_range():
-    result = list(card_number_generator(10, 5))
-    assert result == []
-
-
-@pytest.mark.parametrize("number, expected_format", [
-    (1, r"^\d{4} \d{4} \d{4} \d{4}$"),
-    (1234567890123456, r"^\d{4} \d{4} \d{4} \d{4}$"),
-])
+@pytest.mark.parametrize(
+    "number, expected_format",
+    [
+        (1, r"^\d{4} \d{4} \d{4} \d{4}$"),
+        (1234567890123456, r"^\d{4} \d{4} \d{4} \d{4}$"),
+    ],
+)
 def test_card_number_generator_format(number, expected_format):
     result = next(card_number_generator(number, number))
     # Проверяем с помощью регулярки, что формат корректный
