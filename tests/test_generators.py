@@ -1,5 +1,6 @@
 import pytest
-from src.my_project.generators import filter_by_currency, transaction_descriptions
+import re
+from src.my_project.generators import filter_by_currency, transaction_descriptions, card_number_generator
 
 @pytest.fixture
 def transactions():
@@ -83,3 +84,40 @@ def test_transaction_descriptions_stop_iteration(transactions):
     # следующий вызов должен вызвать StopIteration
     with pytest.raises(StopIteration):
         next(gen)
+
+
+def test_card_number_generator_basic():
+    result = list(card_number_generator(1, 5))
+    expected = [
+        "0000 0000 0000 0001",
+        "0000 0000 0000 0002",
+        "0000 0000 0000 0003",
+        "0000 0000 0000 0004",
+        "0000 0000 0000 0005",
+    ]
+    assert result == expected
+
+
+def test_card_number_generator_single_value():
+    result = list(card_number_generator(123, 123))
+    assert result == ["0000 0000 0000 0123"]
+
+
+def test_card_number_generator_empty_range():
+    result = list(card_number_generator(10, 5))
+    assert result == []
+
+
+def test_card_number_generator_empty_range():
+    result = list(card_number_generator(10, 5))
+    assert result == []
+
+
+@pytest.mark.parametrize("number, expected_format", [
+    (1, r"^\d{4} \d{4} \d{4} \d{4}$"),
+    (1234567890123456, r"^\d{4} \d{4} \d{4} \d{4}$"),
+])
+def test_card_number_generator_format(number, expected_format):
+    result = next(card_number_generator(number, number))
+    # Проверяем с помощью регулярки, что формат корректный
+    assert re.match(expected_format, result)
