@@ -18,6 +18,20 @@ def filter_by_currency(transactions: list[dict], currency_code: str) -> Iterator
         if tx_currency == currency_code:
             yield tx
 
+
+def transaction_descriptions(transactions: list[dict]) -> Iterator[str]:
+    """
+    Генератор, который по очереди возвращает описание каждой транзакции.
+
+    :param transactions: список словарей с транзакциями
+    :return: итератор по строкам описаний
+    """
+    for tx in transactions:
+        description = tx.get("description")
+        if description:
+            yield description
+
+
 if __name__ == "__main__":
     transactions = [
         {
@@ -62,3 +76,8 @@ if __name__ == "__main__":
 
     print(next(usd_transactions))
     print(next(usd_transactions))
+
+    descriptions = transaction_descriptions(transactions)
+
+    for _ in range(3):
+        print(next(descriptions))
